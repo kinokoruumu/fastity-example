@@ -7,6 +7,7 @@ import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
 import { ServerStyleSheet } from "styled-components";
 import { Provider } from "react-redux";
 import { createMemoryHistory } from "history";
+import connectTimeout from "connect-timeout";
 import { Html } from "./components/Html";
 import { configureStore } from "../store/index";
 import { createRouter } from "../foundation/routing/index";
@@ -15,11 +16,15 @@ import { HttpStatusCode } from "../foundation/utils/StatusCodeUtils";
 import { locationChange } from "../store/routing/actions/LocationChangeAction";
 import { RouteRenderer } from "../store/routing/containers/RouteRenderer";
 import { AppContainer } from "../foundation/containers/AppContainer";
+import { createAPIClient } from "../foundation/utils/APIClientUtils";
+import { config } from "../config";
 
 const APP_PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8000;
 const CHUNK_STATS = path.resolve(__dirname, "loadable-stats.json");
 
 const appServer = fastify();
+
+const configForAnyone = config.dehydrate();
 
 // 静的ファイルの配信
 appServer.register(fastifyStatic, {
@@ -29,6 +34,13 @@ appServer.register(fastifyStatic, {
 
 appServer.after(() => {
   /**
+   * Use middleware
+   */
+  appServer.use(
+    connectTimeout(config.get("TIMEOUT_RESPONSE_SERVER").toString()) as any,
+  );
+
+  /**
    * for React
    */
   appServer.get("*", async (request, reply) => {
@@ -37,11 +49,16 @@ appServer.after(() => {
       entrypoints: ["bootstrap"],
     });
 
+    // api client
+    const apiClient = createAPIClient();
+
+    // redux
     const history = createMemoryHistory({
       initialEntries: [request.req.url as string],
     });
     const store = configureStore({
       history,
+      apiClient,
       preloadedState: {},
     });
 
@@ -109,6 +126,7 @@ appServer.after(() => {
         extractor={extractor}
         styleTags={styleTags}
         preloadedState={preloadedState}
+        configForAnyone={configForAnyone}
       >
         {body}
       </Html>,

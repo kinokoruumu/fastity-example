@@ -1,5 +1,5 @@
 import React from "react";
-import { Action, History, Location } from "history";
+import { History, Location } from "history";
 import shallowEqual from "shallowequal";
 import Router from "universal-router";
 import { SCROLL_DURATION, scroller } from "../../../../client/scroller";
@@ -100,13 +100,9 @@ export class RouteRenderer extends React.PureComponent<InjectedProps, State> {
     );
   }
 
-  private handleLocationChange = async (
-    _: Location,
-    action: Action,
-  ): Promise<void> => {
+  private handleLocationChange = async (_: Location): Promise<void> => {
     const { history, router } = this.props;
     const { pathname } = history.location;
-    const url = history.createHref(history.location);
 
     this.setState({ showTransitionProgress: true });
 
@@ -143,8 +139,6 @@ export class RouteRenderer extends React.PureComponent<InjectedProps, State> {
         if (deferAction != null) {
           deferAction();
         }
-
-        this.referrer = url;
       }
     } catch (e) {
       this.setState({
