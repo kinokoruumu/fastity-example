@@ -15,6 +15,7 @@ import { replace } from "../../actions/ReplaceAction";
 import { HistoryContext } from "../../HistoryContext";
 import { RouteParams, RouteState } from "../../reducer";
 import { HttpStatusCode } from "../../../../foundation/utils/StatusCodeUtils";
+import { TransitionProgress } from "../../../../foundation/components/atoms/TransitionProgress";
 
 type Point = {
   x: number;
@@ -85,7 +86,7 @@ export class RouteRenderer extends React.PureComponent<InjectedProps, State> {
   public render(): React.ReactNode {
     const { history, component: Component } = this.props;
     const {
-      // showTransitionProgress,
+      showTransitionProgress,
       layout: { component: LayoutComponent, props: layoutProps },
       children,
     } = this.state;
@@ -94,7 +95,10 @@ export class RouteRenderer extends React.PureComponent<InjectedProps, State> {
       <HistoryContext.Provider value={{ history }}>
         <Component>
           <LayoutComponent {...layoutProps}>{children}</LayoutComponent>
-          {/* <TransitionProgress aria-label="ページを読み込み中" show={showTransitionProgress} /> */}
+          <TransitionProgress
+            aria-label="ページを読み込み中"
+            show={showTransitionProgress}
+          />
         </Component>
       </HistoryContext.Provider>
     );

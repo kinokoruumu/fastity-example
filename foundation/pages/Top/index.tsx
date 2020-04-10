@@ -9,7 +9,12 @@ export async function action({}: RouteActionContext): Promise<
     content: (
       <div>
         <h1>Top</h1>
-        <Link href="/second">/second</Link>
+        <div>
+          <Link href="/second">/second</Link>
+        </div>
+        <div>
+          <Link href="/promise">/promise</Link>
+        </div>
       </div>
     ),
   };

@@ -15,4 +15,10 @@ export const routes = [
       loadable.lib<PageRoute>(() => import("./pages/Second")),
     ),
   },
+  {
+    path: "/promise",
+    action: action(
+      loadable.lib<PageRoute>(() => import("./pages/Promise")),
+    ),
+  },
 ];
