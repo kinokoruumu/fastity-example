@@ -24,7 +24,7 @@ export function configureStore({
 
   return createStore(
     rootReducer,
-    preloadedState,
+    preloadedState as any, // TODO: as any消す
     applyMiddleware(...middlewares),
   );
 }

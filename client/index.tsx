@@ -9,6 +9,7 @@ import { createRouter } from "../foundation/routing/index";
 import { createMiddleware } from "../foundation/routing/Middleware";
 import { Provider } from "react-redux";
 import { RouteRenderer } from "../store/routing/containers/RouteRenderer";
+import { AppContainer } from "../foundation/containers/AppContainer";
 
 function getPreloadedState(): RootState {
   const win = window as any;
@@ -42,7 +43,7 @@ loadableReady(async () => {
           history={history}
           router={router}
           initialLayout={layout}
-          component={({ children }) => <div>{children}</div>}
+          component={AppContainer}
         >
           {content}
         </RouteRenderer>

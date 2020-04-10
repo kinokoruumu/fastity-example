@@ -12,7 +12,7 @@ import {
 const HTTP_URL_REG = /^https?:\/\//;
 const HASH_URL_REG = /^#/;
 
-const Wrapper = styled.a`
+const Container = styled.a`
   text-decoration: underline;
 
   &:hover {
@@ -47,7 +47,7 @@ export class Link extends React.PureComponent<InjectedProps, State> {
     this.history = history as History;
 
     return (
-      <Wrapper
+      <Container
         {...rest}
         target={target}
         rel={target === "_blank" && rel == null ? "noopener noreferrer" : rel}

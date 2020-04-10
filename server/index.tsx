@@ -14,6 +14,7 @@ import { createMiddleware } from "../foundation/routing/Middleware";
 import { HttpStatusCode } from "../foundation/utils/StatusCodeUtils";
 import { locationChange } from "../store/routing/actions/LocationChangeAction";
 import { RouteRenderer } from "../store/routing/containers/RouteRenderer";
+import { AppContainer } from "../foundation/containers/AppContainer";
 
 const APP_PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8000;
 const CHUNK_STATS = path.resolve(__dirname, "loadable-stats.json");
@@ -86,7 +87,7 @@ appServer.after(() => {
                 history={history}
                 router={router}
                 initialLayout={layout}
-                component={({ children }) => <div>{children}</div>}
+                component={AppContainer}
               >
                 {content}
               </RouteRenderer>
