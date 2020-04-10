@@ -13,6 +13,7 @@ export const Html = ({ children }: Props) => (
     </head>
     <body>
       <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
+      <script src="/assets/bootstrap.7acfc897c1b040baf17e.js"></script>
     </body>
   </html>
 );
