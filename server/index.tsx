@@ -5,6 +5,15 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { Html } from "./components/Html";
 import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
+import { createMemoryHistory } from "history";
+import { configureStore } from "../store/index";
+import { createRouter } from "../foundation/routing/index";
+import { createMiddleware } from "../foundation/routing/Middleware";
+import { HttpStatusCode } from "../foundation/utils/StatusCodeUtils";
+import { locationChange } from "../store/routing/actions/LocationChangeAction";
+import { ServerStyleSheet } from "styled-components";
+import { Provider } from "react-redux";
+import { RouteRenderer } from "../store/routing/containers/RouteRenderer";
 
 const APP_PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8000;
 const CHUNK_STATS = path.resolve(__dirname, "loadable-stats.json");
@@ -21,26 +30,87 @@ appServer.after(() => {
   /**
    * for React
    */
-  appServer.get("*", async (_, reply) => {
+  appServer.get("*", async (request, reply) => {
     const extractor = new ChunkExtractor({
       statsFile: CHUNK_STATS,
       entrypoints: ["bootstrap"],
     });
 
+    const history = createMemoryHistory({
+      initialEntries: [request.req.url as string],
+    });
+    const store = configureStore({
+      history,
+      preloadedState: {},
+    });
+
+    const router = createRouter({ store, history }, createMiddleware(false));
+
+    const {
+      statusCode,
+      params,
+      redirectTo,
+      layout,
+      content,
+    } = await router.resolve(history.location.pathname);
+
+    if (redirectTo != null) {
+      reply.redirect(
+        statusCode != null ? statusCode : HttpStatusCode.FOUND,
+        `${redirectTo}`,
+      );
+    }
+
+    store.dispatch(
+      locationChange({
+        hash: history.location.hash,
+        action: history.action,
+        pathname: history.location.pathname,
+        key: history.location.pathname,
+        search: history.location.search,
+        params: typeof params === "string" ? params : ({} as any), // TODO: as any消す
+        status: statusCode != null ? statusCode : HttpStatusCode.OK,
+      }),
+    );
+
+    const sheet = new ServerStyleSheet();
     let body = "";
+    let styleTags: React.ReactElement<{}>[] = [];
 
     try {
       body = ReactDOMServer.renderToString(
-        <ChunkExtractorManager extractor={extractor}>
-          <h1>hogehoge</h1>
-        </ChunkExtractorManager>,
+        sheet.collectStyles(
+          <ChunkExtractorManager extractor={extractor}>
+            <Provider store={store}>
+              <RouteRenderer
+                history={history}
+                router={router}
+                initialLayout={layout}
+                component={({ children }) => <div>{children}</div>}
+              >
+                {content}
+              </RouteRenderer>
+            </Provider>
+          </ChunkExtractorManager>,
+        ),
       );
+
+      styleTags = sheet.getStyleElement();
     } catch (e) {
+      sheet.seal();
       throw e;
     }
 
+    const preloadedState = store.getState();
+
     const html = ReactDOMServer.renderToStaticMarkup(
-      <Html extractor={extractor}>{body}</Html>,
+      <Html
+        extractor={extractor}
+        styleTags={styleTags}
+        preloadedState={preloadedState}
+      >
+        {body}
+      </Html>,
     );
 
     reply
