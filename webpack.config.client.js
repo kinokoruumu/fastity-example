@@ -2,6 +2,7 @@ const path = require("path");
 const { DefinePlugin } = require("webpack");
 const CopyPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
+const LoadablePlugin = require("@loadable/webpack-plugin");
 
 function abs(...args) {
   return path.join(__dirname, ...args);
@@ -76,6 +77,10 @@ module.exports = {
         to: DIST_ROOT,
       },
     ]),
+
+    new LoadablePlugin({
+      filename: "../loadable-stats.json",
+    }),
   ],
   optimization: {
     splitChunks: {

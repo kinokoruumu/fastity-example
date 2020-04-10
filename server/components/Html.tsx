@@ -1,10 +1,12 @@
 import React from "react";
+import { ChunkExtractor } from "@loadable/server";
 
 export type Props = {
   children: string;
+  extractor: ChunkExtractor;
 };
 
-export const Html = ({ children }: Props) => (
+export const Html = ({ children, extractor }: Props) => (
   <html lang="ja">
     <head>
       <meta charSet="utf-8" />
@@ -13,7 +15,8 @@ export const Html = ({ children }: Props) => (
     </head>
     <body>
       <div id="app" dangerouslySetInnerHTML={{ __html: children }} />
-      <script src="/assets/bootstrap.7acfc897c1b040baf17e.js"></script>
+
+      {extractor.getScriptElements({ async: false, defer: true })}
     </body>
   </html>
 );

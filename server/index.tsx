@@ -4,8 +4,10 @@ import * as path from "path";
 import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { Html } from "./components/Html";
+import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
 
 const APP_PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8000;
+const CHUNK_STATS = path.resolve(__dirname, "loadable-stats.json");
 
 const appServer = fastify();
 
@@ -20,15 +22,26 @@ appServer.after(() => {
    * for React
    */
   appServer.get("*", async (_, reply) => {
+    const extractor = new ChunkExtractor({
+      statsFile: CHUNK_STATS,
+      entrypoints: ["bootstrap"],
+    });
+
     let body = "";
 
     try {
-      body = ReactDOMServer.renderToString(<h1>hogehoge</h1>);
+      body = ReactDOMServer.renderToString(
+        <ChunkExtractorManager extractor={extractor}>
+          <h1>hogehoge</h1>
+        </ChunkExtractorManager>,
+      );
     } catch (e) {
       throw e;
     }
 
-    const html = ReactDOMServer.renderToStaticMarkup(<Html>{body}</Html>);
+    const html = ReactDOMServer.renderToStaticMarkup(
+      <Html extractor={extractor}>{body}</Html>,
+    );
 
     reply
       .status(200)
