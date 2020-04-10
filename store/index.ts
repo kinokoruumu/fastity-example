@@ -5,6 +5,7 @@ import { rootReducer, RootState } from "./reducer";
 import { createRouteMiddleware } from "./routing/middlewares/RouteMiddleware";
 import { APIClient } from "../foundation/utils/APIClientUtils";
 import { infrastructure } from "../infra";
+import { createDetectGlobalErrorMiddleware } from "./app/middlewares/DetectGlobalErrorMiddleware";
 
 export type RootStore = Store<RootState>;
 
@@ -29,6 +30,7 @@ export function configureStore({
   const middlewares = [
     thunk.withExtraArgument(extraArgument),
     createRouteMiddleware(history),
+    createDetectGlobalErrorMiddleware(),
   ];
 
   if (process.title === "browser") {

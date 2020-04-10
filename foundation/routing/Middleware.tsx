@@ -5,6 +5,7 @@ import { QueryParams } from "universal-router";
 import { HttpStatusCode } from "../utils/StatusCodeUtils";
 import { DeferPageAction, Middleware, PageAction, PageRoute } from "./types";
 import { createErrorResponse } from "./utils";
+import { FatalHttpError } from "../utils/HttpUtils";
 
 function extractRouteAction(
   Component: LoadableLibrary<PageRoute>,
@@ -45,9 +46,9 @@ export function createMiddleware(isBrowser: boolean): Middleware {
 
     try {
       // 50x 系エラーが発生している状態ではページアクションを実行させない
-      // if (ctx.store.getState().app.fatal) {
-      //   throw new FatalHttpError();
-      // }
+      if (ctx.store.getState().app.fatal) {
+        throw new FatalHttpError();
+      }
 
       let firstOrPush = false;
       // 初回かつクライアントの場合、firstOrPush は false

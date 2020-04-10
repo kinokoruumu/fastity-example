@@ -8,8 +8,8 @@ import {
   RouterContext,
 } from "../../../../foundation/routing/types";
 import { DispatchableAction } from "../../../../foundation/utils/ConnectUtils";
-// import { updateFatal } from '../../../app/actions/UpdateFatalAction';
-// import { AppState } from '../../../app/reducers';
+import { updateFatal } from "../../../app/actions/UpdateFatalAction";
+import { AppState } from "../../../app/reducers";
 import { locationChange } from "../../actions/LocationChangeAction";
 import { replace } from "../../actions/ReplaceAction";
 import { HistoryContext } from "../../HistoryContext";
@@ -40,11 +40,11 @@ export type Props = {
 } & ComponentProps;
 
 export type InjectProps = {
-  // app: AppState;
+  app: AppState;
   routing: RouteState;
   replace: DispatchableAction<typeof replace>;
   locationChange: DispatchableAction<typeof locationChange>;
-  // updateFatal: DispatchableAction<typeof updateFatal>;
+  updateFatal: DispatchableAction<typeof updateFatal>;
 };
 
 type InjectedProps = Props & InjectProps;
@@ -107,9 +107,9 @@ export class RouteRenderer extends React.PureComponent<InjectedProps, State> {
     this.setState({ showTransitionProgress: true });
 
     // 50x 系のエラーはページ遷移のタイミングで一旦クリアする
-    // if (this.props.app.fatal) {
-    //   this.props.updateFatal(false);
-    // }
+    if (this.props.app.fatal) {
+      this.props.updateFatal(false);
+    }
 
     try {
       this.storeScrollPosition();
