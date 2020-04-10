@@ -9,4 +9,10 @@ export const routes = [
       loadable.lib<PageRoute>(() => import("./pages/Top")),
     ),
   },
+  {
+    path: "/second",
+    action: action(
+      loadable.lib<PageRoute>(() => import("./pages/Second")),
+    ),
+  },
 ];
