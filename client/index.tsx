@@ -1,16 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import { loadableReady } from "@loadable/component";
-import SweetScroll from "sweet-scroll";
-import { createBrowserHistory } from "history";
-import { RootState } from "../store/reducer";
-import { configureStore } from "../store/index";
-import { createRouter } from "../foundation/routing/index";
-import { createMiddleware } from "../foundation/routing/Middleware";
-import { Provider } from "react-redux";
-import { RouteRenderer } from "../store/routing/containers/RouteRenderer";
-import { AppContainer } from "../foundation/containers/AppContainer";
-import { createAPIClient } from "../foundation/utils/APIClientUtils";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { loadableReady } from '@loadable/component';
+import SweetScroll from 'sweet-scroll';
+import { createBrowserHistory } from 'history';
+import { RootState } from '../store/reducer';
+import { configureStore } from '../store/index';
+import { createRouter } from '../foundation/routing/index';
+import { createMiddleware } from '../foundation/routing/Middleware';
+import { Provider } from 'react-redux';
+import { RouteRenderer } from '../store/routing/containers/RouteRenderer';
+import { AppContainer } from '../foundation/containers/AppContainer';
+import { createAPIClient } from '../foundation/utils/APIClientUtils';
 
 function getPreloadedState(): RootState {
   const win = window as any;
@@ -21,7 +21,7 @@ function getPreloadedState(): RootState {
 }
 
 loadableReady(async () => {
-  const app = document.getElementById("app");
+  const app = document.getElementById('app');
 
   // smooth scroll
   SweetScroll.create();
@@ -47,8 +47,7 @@ loadableReady(async () => {
           history={history}
           router={router}
           initialLayout={layout}
-          component={AppContainer}
-        >
+          component={AppContainer}>
           {content}
         </RouteRenderer>
       </Provider>,
@@ -60,6 +59,7 @@ loadableReady(async () => {
       },
     );
   } catch (e) {
-    console.error("Client bootstrapping error");
+    // eslint-disable-next-line no-console
+    console.error('Client bootstrapping error');
   }
 });

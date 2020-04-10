@@ -1,4 +1,4 @@
-import { fetchMe } from "./user/UserClient";
+import { fetchMe } from './user/UserClient';
 
 export const infrastructure = {
   user: {

@@ -1,7 +1,7 @@
-import { AnyoneConfig } from ".";
-import { anyoneConfigKeys } from "./internal/AnyoneConfigKeys";
+import { AnyoneConfig } from '.';
+import { anyoneConfigKeys } from './internal/AnyoneConfigKeys';
 
-export class Configure<T extends Object> {
+export class Configure<T extends Record<string, any>> {
   private config: T;
 
   public constructor(config: T) {

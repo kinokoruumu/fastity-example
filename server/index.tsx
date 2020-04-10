@@ -1,26 +1,26 @@
-import fastify from "fastify";
-import fastifyStatic from "fastify-static";
-import * as path from "path";
-import React from "react";
-import ReactDOMServer from "react-dom/server";
-import { ChunkExtractor, ChunkExtractorManager } from "@loadable/server";
-import { ServerStyleSheet } from "styled-components";
-import { Provider } from "react-redux";
-import { createMemoryHistory } from "history";
-import connectTimeout from "connect-timeout";
-import { Html } from "./components/Html";
-import { configureStore } from "../store/index";
-import { createRouter } from "../foundation/routing/index";
-import { createMiddleware } from "../foundation/routing/Middleware";
-import { HttpStatusCode } from "../foundation/utils/StatusCodeUtils";
-import { locationChange } from "../store/routing/actions/LocationChangeAction";
-import { RouteRenderer } from "../store/routing/containers/RouteRenderer";
-import { AppContainer } from "../foundation/containers/AppContainer";
-import { createAPIClient } from "../foundation/utils/APIClientUtils";
-import { config } from "../config";
+import fastify from 'fastify';
+import fastifyStatic from 'fastify-static';
+import * as path from 'path';
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import { ChunkExtractor, ChunkExtractorManager } from '@loadable/server';
+import { ServerStyleSheet } from 'styled-components';
+import { Provider } from 'react-redux';
+import { createMemoryHistory } from 'history';
+import connectTimeout from 'connect-timeout';
+import { Html } from './components/Html';
+import { configureStore } from '../store/index';
+import { createRouter } from '../foundation/routing/index';
+import { createMiddleware } from '../foundation/routing/Middleware';
+import { HttpStatusCode } from '../foundation/utils/StatusCodeUtils';
+import { locationChange } from '../store/routing/actions/LocationChangeAction';
+import { RouteRenderer } from '../store/routing/containers/RouteRenderer';
+import { AppContainer } from '../foundation/containers/AppContainer';
+import { createAPIClient } from '../foundation/utils/APIClientUtils';
+import { config } from '../config';
 
 const APP_PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 8000;
-const CHUNK_STATS = path.resolve(__dirname, "loadable-stats.json");
+const CHUNK_STATS = path.resolve(__dirname, 'loadable-stats.json');
 
 const appServer = fastify();
 
@@ -28,8 +28,8 @@ const configForAnyone = config.dehydrate();
 
 // 静的ファイルの配信
 appServer.register(fastifyStatic, {
-  prefix: "/assets",
-  root: path.join(__dirname, "public"),
+  prefix: '/assets',
+  root: path.join(__dirname, 'public'),
 });
 
 appServer.after(() => {
@@ -37,16 +37,16 @@ appServer.after(() => {
    * Use middleware
    */
   appServer.use(
-    connectTimeout(config.get("TIMEOUT_RESPONSE_SERVER").toString()) as any,
+    connectTimeout(config.get('TIMEOUT_RESPONSE_SERVER').toString()) as any,
   );
 
   /**
    * for React
    */
-  appServer.get("*", async (request, reply) => {
+  appServer.get('*', async (request, reply) => {
     const extractor = new ChunkExtractor({
       statsFile: CHUNK_STATS,
-      entrypoints: ["bootstrap"],
+      entrypoints: ['bootstrap'],
     });
 
     // api client
@@ -86,13 +86,13 @@ appServer.after(() => {
         pathname: history.location.pathname,
         key: history.location.pathname,
         search: history.location.search,
-        params: typeof params === "string" ? params : ({} as any), // TODO: as any消す
+        params: typeof params === 'string' ? params : ({} as any), // TODO: as any消す
         status: statusCode != null ? statusCode : HttpStatusCode.OK,
       }),
     );
 
     const sheet = new ServerStyleSheet();
-    let body = "";
+    let body = '';
     let styleTags: React.ReactElement<{}>[] = [];
 
     try {
@@ -104,8 +104,7 @@ appServer.after(() => {
                 history={history}
                 router={router}
                 initialLayout={layout}
-                component={AppContainer}
-              >
+                component={AppContainer}>
                 {content}
               </RouteRenderer>
             </Provider>
@@ -126,15 +125,14 @@ appServer.after(() => {
         extractor={extractor}
         styleTags={styleTags}
         preloadedState={preloadedState}
-        configForAnyone={configForAnyone}
-      >
+        configForAnyone={configForAnyone}>
         {body}
       </Html>,
     );
 
     reply
       .status(200)
-      .header("Content-Type", "text/html; charset=utf-8")
+      .header('Content-Type', 'text/html; charset=utf-8')
       .send(`<!doctype html>${html}`);
   });
 });
@@ -142,10 +140,12 @@ appServer.after(() => {
 /**
  * Launch servers
  */
-appServer.listen(APP_PORT, "0.0.0.0", (err) => {
+appServer.listen(APP_PORT, '0.0.0.0', (err) => {
   if (err != null) {
+    // eslint-disable-next-line no-console
     console.error(`failed to appServer listening on ${APP_PORT}`);
   } else {
+    // eslint-disable-next-line no-console
     console.info(`appServer listening on ${APP_PORT}`);
   }
 });

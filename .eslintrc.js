@@ -1,5 +1,12 @@
 module.exports = {
-  plugins: ["@typescript-eslint", "react", "react-hooks", "jsx-a11y", "jest"],
+  plugins: [
+    "@typescript-eslint",
+    "react",
+    "react-hooks",
+    "jsx-a11y",
+    "jest",
+    "eslint-plugin-prettier",
+  ],
   extends: [
     "eslint:recommended",
     "prettier",
@@ -11,6 +18,7 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:jsx-a11y/strict",
     "plugin:jest/recommended",
+    "eslint-config-prettier",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -48,6 +56,20 @@ module.exports = {
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        singleQuote: true,
+        useTabs: false,
+        tabWidth: 2,
+        semi: true,
+        bracketSpacing: true,
+        trailingComma: "all",
+        arrowParens: "always",
+        jsxBracketSameLine: true,
+        printWidth: 80,
+      },
+    ],
     "react/no-access-state-in-setstate": "error",
     "react/no-redundant-should-component-update": "error",
     "react/no-this-in-sfc": "error",

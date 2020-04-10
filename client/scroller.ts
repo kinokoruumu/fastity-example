@@ -1,4 +1,4 @@
-import SweetScroll from "sweet-scroll";
+import SweetScroll from 'sweet-scroll';
 
 export enum SCROLL_DURATION {
   HASH = 0,

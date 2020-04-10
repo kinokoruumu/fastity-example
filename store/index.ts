@@ -1,11 +1,11 @@
-import { applyMiddleware, createStore, DeepPartial, Store } from "redux";
-import { History } from "history";
-import thunk from "redux-thunk";
-import { rootReducer, RootState } from "./reducer";
-import { createRouteMiddleware } from "./routing/middlewares/RouteMiddleware";
-import { APIClient } from "../foundation/utils/APIClientUtils";
-import { infrastructure } from "../infra";
-import { createDetectGlobalErrorMiddleware } from "./app/middlewares/DetectGlobalErrorMiddleware";
+import { applyMiddleware, createStore, DeepPartial, Store } from 'redux';
+import { History } from 'history';
+import thunk from 'redux-thunk';
+import { rootReducer, RootState } from './reducer';
+import { createRouteMiddleware } from './routing/middlewares/RouteMiddleware';
+import { APIClient } from '../foundation/utils/APIClientUtils';
+import { infrastructure } from '../infra';
+import { createDetectGlobalErrorMiddleware } from './app/middlewares/DetectGlobalErrorMiddleware';
 
 export type RootStore = Store<RootState>;
 
@@ -33,9 +33,10 @@ export function configureStore({
     createDetectGlobalErrorMiddleware(),
   ];
 
-  if (process.title === "browser") {
-    if (process.env.NODE_ENV !== "production") {
-      middlewares.push(require("redux-logger").createLogger());
+  if (process.title === 'browser') {
+    if (process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      middlewares.push(require('redux-logger').createLogger());
     }
   }
 

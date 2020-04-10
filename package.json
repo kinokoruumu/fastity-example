@@ -18,9 +18,7 @@
     "build:watch:client": "yarn build:client --watch",
     "build:watch:server": "yarn build:server --watch",
     "lint": "eslint ./**/*.{ts,tsx}",
-    "format": "npm-run-all format:*",
-    "format:prettier": "prettier --config prettier.config.js --write '**/*.+(ts|tsx|js|md|json)'",
-    "format:ts": "yarn lint --fix"
+    "format": "yarn lint --fix"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
