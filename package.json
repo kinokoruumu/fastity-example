@@ -1,0 +1,44 @@
+{
+  "name": "fastity-example",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "ssh://git@github.com/kinokoruumu/fastity-example.git",
+  "author": "Kazuki Nishikawa <kazuki_nishikawa@voyagegroup.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/server.js",
+    "dev": "npm-run-all -s clean -p build:watch serve",
+    "serve": "wait-on dist/server.js && nodemon dist/server.js",
+    "clean": "rm -rf dist",
+    "build": "npm-run-all -p build:server",
+    "build:watch": "npm-run-all -p build:watch:*",
+    "build:server": "webpack-cli --config webpack.config.server.js",
+    "build:watch:server": "yarn build:server --watch"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.5",
+    "@babel/plugin-transform-modules-commonjs": "^7.9.0",
+    "@babel/plugin-transform-react-inline-elements": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/express": "^4.17.6",
+    "@types/react-dom": "^16.9.6",
+    "babel-loader": "^8.1.0",
+    "cache-loader": "^4.1.0",
+    "typescript": "^3.8.3",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "fastify": "^2.13.0",
+    "fastify-static": "^2.6.0",
+    "path": "^0.12.7",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
