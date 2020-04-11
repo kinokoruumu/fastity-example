@@ -17,7 +17,7 @@
     "build:server": "webpack-cli --config webpack.config.server.js",
     "build:watch:client": "yarn build:client --watch",
     "build:watch:server": "yarn build:server --watch",
-    "lint": "eslint ./**/*.{ts,tsx}",
+    "lint": "eslint './**/*.{ts,tsx}'",
     "format": "yarn lint --fix"
   },
   "devDependencies": {

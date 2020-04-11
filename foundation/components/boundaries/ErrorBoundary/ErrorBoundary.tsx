@@ -1,5 +1,5 @@
-import React from "react";
-import shallowEqual from "shallowequal";
+import React from 'react';
+import shallowEqual from 'shallowequal';
 
 export type Props = {
   children: React.ReactNode;

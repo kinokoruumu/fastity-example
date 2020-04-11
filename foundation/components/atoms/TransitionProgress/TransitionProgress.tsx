@@ -1,8 +1,8 @@
-import React from "react";
-import { CSSTransition } from "react-transition-group";
-import styled from "styled-components";
-import { LoadingBar, Props as LoadingBarProps } from "./internal/LoadingBar";
-import { Portal } from "../../internal/Portal";
+import React from 'react';
+import { CSSTransition } from 'react-transition-group';
+import styled from 'styled-components';
+import { LoadingBar, Props as LoadingBarProps } from './internal/LoadingBar';
+import { Portal } from '../../internal/Portal';
 
 const Wrapper = styled.span`
   position: fixed;
@@ -46,12 +46,11 @@ export type Props = LoadingBarProps & {
 export const TransitionProgress = ({ show, ...rest }: Props) => (
   <Portal>
     <CSSTransition
+      appear
+      mountOnEnter
       in={show}
       classNames="transition-progress"
-      appear={true}
-      mountOnEnter={true}
-      timeout={show ? 150 : 75}
-    >
+      timeout={show ? 150 : 75}>
       <Wrapper>
         <LoadingBar {...rest} />
       </Wrapper>

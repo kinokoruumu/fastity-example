@@ -1,8 +1,8 @@
-import { LoadableLibrary } from "@loadable/component";
-import { History } from "history";
-import { QueryParams, ResolveRoute, RouteContext } from "universal-router";
-import { RootStore } from "../../store";
-import { HttpStatusCode } from "../utils/StatusCodeUtils";
+import { LoadableLibrary } from '@loadable/component';
+import { History } from 'history';
+import { QueryParams, ResolveRoute, RouteContext } from 'universal-router';
+import { RootStore } from '../../store';
+import { HttpStatusCode } from '../utils/StatusCodeUtils';
 
 export type RouterContext = {
   store: RootStore;
@@ -28,7 +28,7 @@ export type RouteLayout<C extends React.ComponentType = any> = {
   component: C;
   props: C extends React.ComponentType<infer P>
     ? P extends { children: any }
-      ? Omit<P, "children">
+      ? Omit<P, 'children'>
       : any
     : any;
 };

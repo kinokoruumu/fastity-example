@@ -1,4 +1,4 @@
-import { ThunkAction, ThunkDispatch } from "../../store/types";
+import { ThunkAction, ThunkDispatch } from '../../store/types';
 
 type AnyActionFunc = (...args: any[]) => any;
 
@@ -16,5 +16,5 @@ export function dispatchable<T extends AnyActionFunc>(
   dispatch: ThunkDispatch<ReturnType<T>>,
   action: T,
 ): DispatchableAction<T> {
-  return <any>((...args: any[]) => dispatch(action(...args)));
+  return ((...args: any[]) => dispatch(action(...args))) as any;
 }

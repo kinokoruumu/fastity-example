@@ -1,1 +1,1 @@
-export { appReducer, AppState } from "./app";
+export { appReducer, AppState } from './app';

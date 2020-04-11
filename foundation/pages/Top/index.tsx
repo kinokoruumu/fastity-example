@@ -1,10 +1,8 @@
-import React from "react";
-import { RouteActionContext, RouteActionPayload } from "../../routing/types";
-import { Link } from "../../components/atoms/Link";
+import React from 'react';
+import { RouteActionPayload } from '../../routing/types';
+import { Link } from '../../components/atoms/Link';
 
-export async function action({}: RouteActionContext): Promise<
-  RouteActionPayload
-> {
+export async function action(): Promise<RouteActionPayload> {
   return {
     content: (
       <div>

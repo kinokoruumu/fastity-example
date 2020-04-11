@@ -1,10 +1,10 @@
-import React from "react";
-import { ChunkExtractor } from "@loadable/server";
-import { RootState } from "../../store/reducer";
-import { AnyoneConfig } from "../../config";
+import React from 'react';
+import { ChunkExtractor } from '@loadable/server';
+import { RootState } from '../../store/reducer';
+import { AnyoneConfig } from '../../config';
 
 function json2str(obj: any): string {
-  return JSON.stringify(obj).replace(/</g, "\\u003c");
+  return JSON.stringify(obj).replace(/</g, '\\u003c');
 }
 
 export type Props = {

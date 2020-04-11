@@ -1,21 +1,21 @@
-import React from "react";
-import { History, Location } from "history";
-import shallowEqual from "shallowequal";
-import Router from "universal-router";
-import { SCROLL_DURATION, scroller } from "../../../../client/scroller";
+import React from 'react';
+import { History, Location } from 'history';
+import shallowEqual from 'shallowequal';
+import Router from 'universal-router';
+import { SCROLL_DURATION, scroller } from '../../../../client/scroller';
 import {
   RouteLayout,
   RouterContext,
-} from "../../../../foundation/routing/types";
-import { DispatchableAction } from "../../../../foundation/utils/ConnectUtils";
-import { updateFatal } from "../../../app/actions/UpdateFatalAction";
-import { AppState } from "../../../app/reducers";
-import { locationChange } from "../../actions/LocationChangeAction";
-import { replace } from "../../actions/ReplaceAction";
-import { HistoryContext } from "../../HistoryContext";
-import { RouteParams, RouteState } from "../../reducer";
-import { HttpStatusCode } from "../../../../foundation/utils/StatusCodeUtils";
-import { TransitionProgress } from "../../../../foundation/components/atoms/TransitionProgress";
+} from '../../../../foundation/routing/types';
+import { DispatchableAction } from '../../../../foundation/utils/ConnectUtils';
+import { updateFatal } from '../../../app/actions/UpdateFatalAction';
+import { AppState } from '../../../app/reducers';
+import { locationChange } from '../../actions/LocationChangeAction';
+import { replace } from '../../actions/ReplaceAction';
+import { HistoryContext } from '../../HistoryContext';
+import { RouteParams, RouteState } from '../../reducer';
+import { HttpStatusCode } from '../../../../foundation/utils/StatusCodeUtils';
+import { TransitionProgress } from '../../../../foundation/components/atoms/TransitionProgress';
 
 type Point = {
   x: number;
@@ -197,14 +197,14 @@ export class RouteRenderer extends React.PureComponent<InjectedProps, State> {
     } = this.props;
 
     // initial view
-    if (scrollPositionMap.size === 0 && action === "POP") {
+    if (scrollPositionMap.size === 0 && action === 'POP') {
       this.scrollToHashPosition(hash);
 
       return;
     }
 
     // POP
-    if (action === "POP") {
+    if (action === 'POP') {
       const { x, y } = scrollPositionMap.has(pathname)
         ? (scrollPositionMap.get(pathname) as Point)
         : { x: 0, y: 0 };

@@ -27,10 +27,9 @@ export const initialState: RouteState = {
   status: HttpStatusCode.OK,
 };
 
-export const routeReducer = reducerWithInitialState<RouteState>(initialState).case(
-  locationChange,
-  (state, payload) => ({
-    ...state,
-    ...payload,
-  }),
-);
+export const routeReducer = reducerWithInitialState<RouteState>(
+  initialState,
+).case(locationChange, (state, payload) => ({
+  ...state,
+  ...payload,
+}));

@@ -1,5 +1,5 @@
-import { reducerWithInitialState } from "typescript-fsa-reducers";
-import { updateFatal } from "../actions/UpdateFatalAction";
+import { reducerWithInitialState } from 'typescript-fsa-reducers';
+import { updateFatal } from '../actions/UpdateFatalAction';
 
 export type AppState = {
   fatal: boolean;

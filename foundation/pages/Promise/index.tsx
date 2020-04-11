@@ -1,5 +1,5 @@
-import React from "react";
-import { RouteActionContext, RouteActionPayload } from "../../routing/types";
+import React from 'react';
+import { RouteActionContext, RouteActionPayload } from '../../routing/types';
 
 export async function action({
   firstOrPush,

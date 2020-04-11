@@ -1,8 +1,8 @@
-import React from "react";
-import { Helmet } from "react-helmet";
-import styled from "styled-components";
-import { ErrorBoundary } from "../../components/boundaries/ErrorBoundary";
-import { GlobalStyle } from "../../styles/globalStyle";
+import React from 'react';
+import { Helmet } from 'react-helmet';
+import styled from 'styled-components';
+import { ErrorBoundary } from '../../components/boundaries/ErrorBoundary';
+import { GlobalStyle } from '../../styles/globalStyle';
 
 export type Props = {
   children: React.ReactNode;

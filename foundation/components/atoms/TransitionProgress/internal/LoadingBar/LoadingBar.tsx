@@ -1,5 +1,5 @@
-import React from "react";
-import styled, { keyframes } from "styled-components";
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const indeterminate1 = keyframes`
   0% {
@@ -52,7 +52,7 @@ const Wrapper = styled.span`
     display: block;
     width: auto;
     background-color: #0b82f4;
-    content: "";
+    content: '';
   }
 
   &::before {
@@ -68,9 +68,9 @@ const Wrapper = styled.span`
 
 export type Props = Omit<
   React.HTMLAttributes<HTMLSpanElement>,
-  "role" | "aria-label"
+  'role' | 'aria-label'
 > & {
-  "aria-label": string;
+  'aria-label': string;
 };
 
 export const LoadingBar = (props: Props) => (

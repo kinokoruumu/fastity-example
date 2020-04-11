@@ -1,1 +1,1 @@
-export { Portal, Props } from "./Portal";
+export { Portal, Props } from './Portal';

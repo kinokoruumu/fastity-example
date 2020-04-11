@@ -1,11 +1,11 @@
-import React from "react";
-import { LoadableLibrary } from "@loadable/component";
-import { renderToStaticMarkup } from "react-dom/server";
-import { QueryParams } from "universal-router";
-import { HttpStatusCode } from "../utils/StatusCodeUtils";
-import { DeferPageAction, Middleware, PageAction, PageRoute } from "./types";
-import { createErrorResponse } from "./utils";
-import { FatalHttpError } from "../utils/HttpUtils";
+import React from 'react';
+import { LoadableLibrary } from '@loadable/component';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { QueryParams } from 'universal-router';
+import { HttpStatusCode } from '../utils/StatusCodeUtils';
+import { DeferPageAction, Middleware, PageAction, PageRoute } from './types';
+import { createErrorResponse } from './utils';
+import { FatalHttpError } from '../utils/HttpUtils';
 
 function extractRouteAction(
   Component: LoadableLibrary<PageRoute>,
@@ -56,7 +56,7 @@ export function createMiddleware(isBrowser: boolean): Middleware {
         // サーバ or 2回目以降の遷移の場合、storedHistories にすでに含まれているか、
         // action が PUSH であるかのチェックを行う
         firstOrPush =
-          !storedHistories.has(ctx.pathname) || ctx.history.action === "PUSH";
+          !storedHistories.has(ctx.pathname) || ctx.history.action === 'PUSH';
       }
 
       storedHistories.add(ctx.pathname);

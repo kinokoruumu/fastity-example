@@ -1,5 +1,5 @@
-import { actionCreator } from "./actionCreator";
+import { actionCreator } from './actionCreator';
 
 export type UpdateFatalPayload = boolean;
 
-export const updateFatal = actionCreator<UpdateFatalPayload>("UPDATE_FATAL");
+export const updateFatal = actionCreator<UpdateFatalPayload>('UPDATE_FATAL');

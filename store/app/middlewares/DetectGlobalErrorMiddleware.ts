@@ -1,6 +1,6 @@
-import { Middleware } from "redux";
-import { FatalHttpError } from "../../../foundation/utils/HttpUtils";
-import { updateFatal } from "../actions/UpdateFatalAction";
+import { Middleware } from 'redux';
+import { FatalHttpError } from '../../../foundation/utils/HttpUtils';
+import { updateFatal } from '../actions/UpdateFatalAction';
 
 /**
  * 各種 Action の payload or meta から、アプリケーションの状態遷移

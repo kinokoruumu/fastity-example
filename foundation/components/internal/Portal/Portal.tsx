@@ -1,5 +1,5 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
+import ReactDOM from 'react-dom';
 
 export type Props = {
   children: React.ReactNode;
@@ -22,8 +22,8 @@ export class Portal extends React.PureComponent<Props, State> {
     const { onRendered } = this.props;
 
     if (this.wrapper == null) {
-      this.wrapper = document.createElement("div");
-      this.wrapper.className = "portal";
+      this.wrapper = document.createElement('div');
+      this.wrapper.className = 'portal';
     }
 
     if (this.props.prepend) {

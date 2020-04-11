@@ -1,17 +1,15 @@
-import axios, { AxiosInstance } from "axios";
-import { config } from "../../config";
-
-type APIClientOptions = {};
+import axios, { AxiosInstance } from 'axios';
+import { config } from '../../config';
 
 export type APIClient = AxiosInstance;
 
 /**
  * Factory for api client
  */
-export function createAPIClient({}: APIClientOptions = {}): APIClient {
+export function createAPIClient(): APIClient {
   const apiClient = axios.create({
-    baseURL: config.get("API_URL"),
-    timeout: config.get("API_TIMEOUT"),
+    baseURL: config.get('API_URL'),
+    timeout: config.get('API_TIMEOUT'),
   });
 
   /**

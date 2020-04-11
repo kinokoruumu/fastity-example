@@ -1,6 +1,6 @@
-import Router from "universal-router";
-import { routes } from "../routes";
-import { Middleware, RouterContext } from "./types";
+import Router from 'universal-router';
+import { routes } from '../routes';
+import { Middleware, RouterContext } from './types';
 
 export function createRouter(
   context: RouterContext,
@@ -8,7 +8,7 @@ export function createRouter(
 ): Router<RouterContext> {
   return new Router(
     {
-      path: "",
+      path: '',
       children: routes,
       action: middleware,
     },

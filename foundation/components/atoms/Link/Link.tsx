@@ -1,13 +1,13 @@
-import { History } from "history";
-import React from "react";
-import styled from "styled-components";
-import { isModifiedMouseEvent } from "../../../../client/utils/EventUtils";
-import { DispatchableAction } from "../../../../foundation/utils/ConnectUtils";
-import { push } from "../../../../store/routing/actions/PushAction";
+import { History } from 'history';
+import React from 'react';
+import styled from 'styled-components';
+import { isModifiedMouseEvent } from '../../../../client/utils/EventUtils';
+import { DispatchableAction } from '../../../../foundation/utils/ConnectUtils';
+import { push } from '../../../../store/routing/actions/PushAction';
 import {
   HistoryContext,
   HistoryContextValues,
-} from "../../../../store/routing/HistoryContext";
+} from '../../../../store/routing/HistoryContext';
 
 const HTTP_URL_REG = /^https?:\/\//;
 const HASH_URL_REG = /^#/;
@@ -20,7 +20,7 @@ const Container = styled.a`
   }
 `;
 
-export type Props = React.ComponentPropsWithoutRef<"a">;
+export type Props = React.ComponentPropsWithoutRef<'a'>;
 
 export type InjectProps = {
   push: DispatchableAction<typeof push>;
@@ -50,7 +50,7 @@ export class Link extends React.PureComponent<InjectedProps, State> {
       <Container
         {...rest}
         target={target}
-        rel={target === "_blank" && rel == null ? "noopener noreferrer" : rel}
+        rel={target === '_blank' && rel == null ? 'noopener noreferrer' : rel}
         onClick={this.handleClick}
       />
     );

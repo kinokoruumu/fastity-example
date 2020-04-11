@@ -1,21 +1,21 @@
-import React from "react";
-import { LoadableLibrary } from "@loadable/component";
-import { Route } from "universal-router";
-import { FatalHttpError, NotFoundHttpError } from "../utils/HttpUtils";
-import { HttpStatusCode } from "../utils/StatusCodeUtils";
-import { ChildRouteAction, PageRoute, RouteActionPayload } from "./types";
+import React from 'react';
+import { LoadableLibrary } from '@loadable/component';
+import { Route } from 'universal-router';
+import { FatalHttpError, NotFoundHttpError } from '../utils/HttpUtils';
+import { HttpStatusCode } from '../utils/StatusCodeUtils';
+import { ChildRouteAction, PageRoute, RouteActionPayload } from './types';
 
 function combineRoutePath(route: Route): string {
-  let path = "";
+  let path = '';
 
   if (route.parent != null) {
     const parent = combineRoutePath(route.parent);
-    path = `${parent === "/" ? "" : parent}${route.path}`;
+    path = `${parent === '/' ? '' : parent}${route.path}`;
   } else {
-    path = route.path === "" ? "/" : (route.path as string);
+    path = route.path === '' ? '/' : (route.path as string);
   }
 
-  return path === "" ? "/" : path;
+  return path === '' ? '/' : path;
 }
 
 export function action(library: LoadableLibrary<PageRoute>): ChildRouteAction {
