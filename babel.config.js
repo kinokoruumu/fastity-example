@@ -1,11 +1,20 @@
 module.exports = (api) => {
-  const presets = ['@babel/preset-react', '@babel/preset-typescript']
+  const presets = ['@babel/preset-react', '@babel/preset-typescript'];
 
   const plugins = [
     '@babel/plugin-proposal-class-properties',
     '@babel/plugin-proposal-object-rest-spread',
+    '@babel/plugin-syntax-dynamic-import',
+    '@babel/plugin-transform-react-display-name',
+    [
+      'babel-plugin-styled-components',
+      {
+        displayName: false,
+      },
+    ],
     '@loadable/babel-plugin',
-  ]
+    'macros',
+  ];
 
   /**
    * for Node.js
@@ -13,8 +22,9 @@ module.exports = (api) => {
   if (api.env('node')) {
     plugins.push(
       '@babel/plugin-transform-modules-commonjs',
+      'babel-plugin-dynamic-import-node',
       '@babel/plugin-transform-react-inline-elements',
-    )
+    );
   }
 
   /**
@@ -29,16 +39,16 @@ module.exports = (api) => {
         targets:
           'last 5 ChromeAndroid versions, last 2 Chrome versions, last 2 Safari major versions, last 2 Firefox versions, last 2 Edge major versions, iOS >= 11, not ie <= 11',
       },
-    ])
+    ]);
 
     plugins.push(
       '@babel/plugin-transform-runtime',
       '@babel/plugin-transform-react-inline-elements',
-    )
+    );
   }
 
   return {
     presets,
     plugins,
-  }
-}
+  };
+};
